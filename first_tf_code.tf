@@ -11,7 +11,6 @@ provider "aws" {
 
   resource "aws_s3_bucket" "tf_course1" {
   bucket = "tf-course-202204241"
-  acl    = "private"
   }
 
 resource "aws_instance" "my_ec2" {
@@ -24,12 +23,19 @@ resource "aws_instance" "my_ec2" {
   tags = {
      Name = "genius_instance"
  }
- user_data = <<EOF
- #!/bin/bash
- yum update -y
- yum install httpd
- systemctl enable --now httpd
-EOF
+ user_data = "${file("./script.sh")}"
  
 }
+
+resource "aws_volume_attachment" "ebs_att" {
+  device_name    = "/dev/sdh"
+  volume_id      = aws_ebs_volume.example.id
+  instance_id    = aws_instance.my_ec2.id
+}
+
+resource "aws_ebs_volume" "example" {
+  availability_zone = "us-east-1a"
+  size              = 1
+}
+
 
