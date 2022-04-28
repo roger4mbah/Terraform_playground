@@ -23,7 +23,7 @@ resource "aws_instance" "my_ec2" {
   tags = {
      Name = "genius_instance"
  }
- user_data = "${file("./script.sh")}"
+ user_data = "${file("./jjtech_script.sh")}"
  
 }
 
