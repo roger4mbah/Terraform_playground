@@ -7,3 +7,4 @@ unzip jjtech-streaming-application-v1.zip
 cp -rf jjtech-streaming-application-v1/* .
 rm -rf jjtech-streaming-application-v1.zip __MACOSX/
 systemctl enable --now httpd
+
